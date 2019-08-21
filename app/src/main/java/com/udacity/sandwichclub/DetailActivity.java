@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -15,12 +16,22 @@ public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
 
+    private ImageView ingredientsIv;
+    private TextView alsoKnownTv;
+    private TextView originTv;
+    private TextView ingredientsTv;
+    private TextView descriptionTv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        ImageView ingredientsIv = findViewById(R.id.image_iv);
+        ingredientsIv = findViewById(R.id.image_iv);
+        alsoKnownTv = findViewById(R.id.also_known_tv);
+        originTv = findViewById(R.id.origin_tv);
+        ingredientsTv = findViewById(R.id.ingredients_tv);
+        descriptionTv = findViewById(R.id.description_tv);
 
         Intent intent = getIntent();
         if (intent == null) {
@@ -43,12 +54,8 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        populateUI();
-        Picasso.with(this)
-                .load(sandwich.getImage())
-                .into(ingredientsIv);
-
-        setTitle(sandwich.getMainName());
+        // Set the data to the details layout
+        populateUI(sandwich);
     }
 
     private void closeOnError() {
@@ -56,7 +63,15 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-    private void populateUI() {
+    private void populateUI(Sandwich sandwich) {
+        setTitle(sandwich.getMainName());
+        Picasso.with(this)
+                .load(sandwich.getImage())
+                .into(ingredientsIv);
 
+        alsoKnownTv.setText(sandwich.getAlsoKnownAs().toString());
+        originTv.setText(sandwich.getPlaceOfOrigin());
+        ingredientsTv.setText(sandwich.getIngredients().toString());
+        descriptionTv.setText(sandwich.getDescription());
     }
 }
