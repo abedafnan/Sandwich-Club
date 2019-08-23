@@ -3,6 +3,7 @@ package com.udacity.sandwichclub;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,11 +68,38 @@ public class DetailActivity extends AppCompatActivity {
         setTitle(sandwich.getMainName());
         Picasso.with(this)
                 .load(sandwich.getImage())
+                .placeholder(R.mipmap.ic_launcher)
                 .into(ingredientsIv);
 
-        alsoKnownTv.setText(sandwich.getAlsoKnownAs().toString());
-        originTv.setText(sandwich.getPlaceOfOrigin());
-        ingredientsTv.setText(sandwich.getIngredients().toString());
-        descriptionTv.setText(sandwich.getDescription());
+        Log.d("TEST", sandwich.getAlsoKnownAs().toString());
+        Log.d("TEST", sandwich.getIngredients().toString());
+        Log.d("TEST", sandwich.getDescription());
+        Log.d("TEST", sandwich.getPlaceOfOrigin());
+
+        // Display a string when the data fetched is empty
+        if (sandwich.getAlsoKnownAs().isEmpty()) {
+            alsoKnownTv.setText(getString(R.string.string_no_data));
+        } else {
+            alsoKnownTv.setText(sandwich.getAlsoKnownAs().toString());
+        }
+
+        if (sandwich.getPlaceOfOrigin().isEmpty()) {
+            originTv.setText(getString(R.string.string_no_data));
+        } else {
+            originTv.setText(sandwich.getPlaceOfOrigin());
+        }
+
+        if (sandwich.getIngredients().isEmpty()) {
+            ingredientsTv.setText(getString(R.string.string_no_data));
+        } else {
+            ingredientsTv.setText(sandwich.getIngredients().toString());
+        }
+
+        if (sandwich.getDescription().isEmpty()) {
+            descriptionTv.setText(getString(R.string.string_no_data));
+        } else {
+            descriptionTv.setText(sandwich.getDescription());
+        }
+
     }
 }

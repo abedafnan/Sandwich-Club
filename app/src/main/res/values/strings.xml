@@ -128,5 +128,8 @@
         </item>
     </string-array>
 
+    <string name="string_empty_data">Empty Data Field</string>
+    <string name="string_no_data">No Data Available</string>
+
 </resources>
 <!-- Photo credits to Wikimedia Commons -->

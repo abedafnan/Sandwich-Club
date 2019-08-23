@@ -26,9 +26,10 @@ public class JsonUtils {
             }
 
             // Get place of origin & description & image url
-            String placeOfOrigin = rootObject.getString("placeOfOrigin");
-            String description = rootObject.getString("description");
-            String image = rootObject.getString("image");
+            // Use optString() if string isn't provided in JSON
+            String placeOfOrigin = rootObject.optString("placeOfOrigin", "sandwich place of origin");
+            String description = rootObject.optString("description", "sandwich description");
+            String image = rootObject.optString("image", "sandwich image");
 
             // Get the ingredients array
             List<String> ingredients = new ArrayList<>();
